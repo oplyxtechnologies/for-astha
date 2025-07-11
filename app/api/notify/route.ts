@@ -1,38 +1,36 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import ForgiveAlert from "@/emails/ForgiveAlert";
+import ThankYouAlert from "@/emails/ThankYouEmail";
 
-const resend = new Resend(process.env.RESEND_API_KEY); // keep the key in .env.local
+// Resend client
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// customise these ↴
+// addresses
 const YOUR_EMAIL = "gdrajan.sharma@gmail.com";
-const HER_EMAIL = "gdrajan.sharma@gmail.com";
+const HER_EMAIL = "gdrajan.sharma@gmail.com"; // change later if needed
 
 export async function POST() {
   try {
-    /* mail to you */
+    // send to you
     await resend.emails.send({
-      from: "connect@oplyx.tech",
+      from: "connect@oplyx.tech", // or a verified sender
       to: YOUR_EMAIL,
       subject: "She Forgave You ❤️",
-      html: `<p>Aastha clicked <strong>I Forgive You</strong>. Time to keep your promises! ✨</p>`,
+      react: ForgiveAlert(),
     });
 
-    /* mail to her */
+    // send to her
     await resend.emails.send({
-      from: "connect@oplyx.tech",
+      from: "connect@oplyx.tech", // or a verified sender
       to: HER_EMAIL,
-      subject: "Thank you for forgiving me 💖",
-      html: `
-        <p>Hi Aastha,</p>
-        <p>Thank you for pressing that button and giving me another chance.
-        I value you more than words can say and I’ll prove it every day.</p>
-        <p>With all my love,<br/>Me 💌</p>
-      `,
+      subject: "Thank You for Forgiving Me 💖",
+      react: ThankYouAlert(),
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    console.error("Email error:", err);
+    return NextResponse.json({ success: false }, { status: 500 });
   }
 }
