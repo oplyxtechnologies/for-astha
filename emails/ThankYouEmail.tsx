@@ -38,7 +38,7 @@ export default function ThankYouEmail() {
           </Text>
           <Hr />
           <Text style={{ fontSize: 12, color: "#888" }}>
-            Sent from Oplyx Love Notebook
+            Sent from your Love Notebook
           </Text>
         </Container>
       </Body>
