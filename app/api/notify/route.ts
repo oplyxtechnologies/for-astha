@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // addresses
 const YOUR_EMAIL = "gdrajan.sharma@gmail.com";
-const HER_EMAIL = "gdrajan.sharma@gmail.com"; // change later if needed
+const HER_EMAIL = "kandelaastha36@gmail.com"; // change later if needed
 
 export async function POST() {
   try {
